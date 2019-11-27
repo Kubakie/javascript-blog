@@ -130,7 +130,7 @@ function generateTags() {
             /* generate HTML of the link */
             console.log(tag);
             /* add generated code to html variable */
-            const linkHTML = '<li><a href="#tag-' + tag + '"> ' + tag + ' </a></li>';
+            const linkHTML = '<li class="tag-inside-article "><a href="#tag-' + tag + '"> ' + tag + ' ' + ' </a></li>';
             html = html + linkHTML;
             console.log(linkHTML);
             /* END LOOP: for each tag */
