@@ -26,6 +26,7 @@ function titleClickHandler(event) {
 }
 // II część modułu (tags)
 const optArticleSelector = '.post',
+      optTagsListSelector = '.tags.list',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
     optArticleTagsSelector = '.post-tags .list';
@@ -61,6 +62,8 @@ function generateTitleLinks(customSelector ='') {
 generateTitleLinks();
 // Title list part
 function generateTags() {
+    /* [NEW] create a new variable allTags with an empty array */
+  let allTags = [];
     /* find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
     /* START LOOP: for every article: */
@@ -86,13 +89,24 @@ function generateTags() {
             const linkHTML = '<li class="tag-inside-article "><a href="#tag-' + tag + '"> ' + tag + ' ' + ' </a></li>';
             html = html + linkHTML;
             console.log(linkHTML);
+            /* [NEW] check if this link is NOT already in allTags */
+      if(allTags.indexOf(linkHTML) == -1){
+        /* [NEW] add generated code to allTags array */
+        allTags.push(linkHTML);
             /* END LOOP: for each tag */
+        }
         }
         /* insert HTML of all the links into the tags wrapper */
         tagsList.innerHTML = html;
         console.log(tagsList, html);
         /* END LOOP: for every article: */
     }
+    /* [NEW] find list of tags in right column */
+  const tagList = document.querySelector('.tags');
+
+  /* [NEW] add html from allTags to tagList */
+  tagList.innerHTML = allTags.join(' ');
+
 }
 generateTags();
 function tagClickHandler(event) {
