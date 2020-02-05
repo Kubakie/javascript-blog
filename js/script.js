@@ -84,72 +84,68 @@ function calculateTagClass(count, params) {
   return tagClass;
 }
 function generateTags() {
-    /* [NEW] create a new variable allTags with an empty object */
+    // [NEW] create a new variable allTags with an empty object /
   let allTags = {};
-    /* find all articles */
+    // find all articles /
     const articles = document.querySelectorAll(optArticleSelector);
-    /* START LOOP: for every article: */
+    // START LOOP: for every article: /
     for (let article of articles) {
         console.log(article);
-        /* find tags wrapper */
+        // find tags wrapper /
         const tagsList = article.querySelector(optArticleTagsSelector);
-        /* make html variable with empty string */
+        // make html variable with empty string /
         let html = '';
-        /* get tags from data-tags attribute */
+        // get tags from data-tags attribute /
         const articleTags = article.getAttribute('data-tags');
         console.log('articleTags');
         console.log(articleTags);
-        /* split tags into array */
+        // split tags into array /
         const articleTagsArray = articleTags.split(' ');
         console.log(articleTagsArray);
 
-        /* START LOOP: for each tag */
+        // START LOOP: for each tag /
         for (let tag of articleTagsArray) {
-            /* generate HTML of the link */
+            // generate HTML of the link /
             console.log(tag);
-            /* add generated code to html variable */
+            // add generated code to html variable /
             const linkHTML = '<li class="tag-inside-article "><a href="#tag-' + tag + '"> ' + tag + ' ' + ' </a></li>';
             html = html + linkHTML;
             console.log(linkHTML);
-            /* [NEW] check if this link is NOT already in allTags */
+            // [NEW] check if this link is NOT already in allTags /
             if(!allTags.hasOwnProperty(tag) ){
-        /* [NEW] add generated code to allTags array */
+                // [NEW] add generated code to allTags array /
                 allTags[tag]= 1;
-            
-            /* END LOOP: for each tag */
+                // END LOOP: for each tag /
             }
             else{
                 allTags[tag]++;
-            
             }
         }
-        /* insert HTML of all the links into the tags wrapper */
+        // insert HTML of all the links into the tags wrapper /
         tagsList.innerHTML = html;
         console.log(tagsList, html);
-        /* END LOOP: for every article: */
+        // END LOOP: for every article: /
     }
-    /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector('.tags');
-const tagsParams = calculateTagsParams(allTags);
-console.log('tagsParams:', tagsParams)
+    // [NEW] find list of tags in right column /
+    const tagList = document.querySelector('.list.tags'); //.list?
+    const tagsParams = calculateTagsParams(allTags);
+    console.log('tagsParams:', tagsParams)
 
- /* [NEW] create variable for all links HTML code */
-  let allTagsHTML = '';
-/* [NEW] START LOOP: for each tag in allTags: */
+    // [NEW] create variable for all links HTML code /
+    let allTagsHTML = '';
+    // [NEW] START LOOP: for each tag in allTags: /
     for(let tag in allTags){
-    /* [NEW] generate code of a link and add it to allTagsHTML */
-   const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParam) + '</li>';
-console.log('tagLinkHTML:', tagLinkHTML);
-    const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParam) + '</li>';
-console.log('tagLinkHTML:', tagLinkHTML);
+    // [NEW] generate code of a link and add it to allTagsHTML /
+        const tagLinkHTML = ' (' + calculateTagClass(allTags[tag], tagsParams) + ') ';
+        console.log('tagLinkHTML:', tagLinkHTML);
 
-        const linkhtml = '<li><a href="#tag-' + tag + '">' + tag +  '(' + allTags[tag] +')' + '</a></li>'
-allTagsHTML += tagLinkHTML;
-        
-         /* [NEW] END LOOP: for each tag in allTags */
+        const linkhtml = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag +  '(' + allTags[tag] +')' + '</a>' + tagLinkHTML + '</li>'
+        allTagsHTML += linkhtml;
+
+         // [NEW] END LOOP: for each tag in allTags /
     }
-     /* [NEW] END LOOP: for each tag in allTags: */
-      /* [NEW] add html from allTagsHTML to tagList */
+     // [NEW] END LOOP: for each tag in allTags: /
+      // [NEW] add html from allTagsHTML to tagList /
     console.log(allTagsHTML);
     tagList.innerHTML = allTagsHTML;
 }
