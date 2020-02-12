@@ -87,7 +87,6 @@ body {
     list-style-type: none;
     margin: 0;
     padding: 0;
-
     .active {
         font-weight: bold;
     }
@@ -100,7 +99,28 @@ body {
 }
 
 /* Authors */
-
+/* Tags Cloud*/
+/*Tag Size*/	
+.tag-size-1 {
+  font-size: 15px;
+  color: #DDA0DD;
+}
+.tag-size-2 {
+  font-size: 20px;
+  color:	#ff3399;
+}
+.tag-size-3 {
+  font-size: 25px;
+  color: #40E0D0;
+}
+.tag-size-4{
+  font-size: 30px;
+  color: #98FB98;
+}
+.tag-size-5{
+  font-size: 30px;
+  color: #98FB98;
+}
 .authors {
     li {
         margin-bottom: 12px;
