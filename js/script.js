@@ -28,8 +28,10 @@ function titleClickHandler(event) {
 }
 // II część modułu (tags) settings:
 const optArticleSelector = '.post',
+      articleAutorsSelector = '.post-author',
       optTagsListSelector = '.tags.list',
     optTitleSelector = '.post-title',
+    optAuthorsListSelector = '.author.list',
     optTitleListSelector = '.titles',
       optCloudClassCount = 5,
   optCloudClassPrefix = 'tag-size-',
@@ -192,56 +194,9 @@ function addClickListenersToTags() {
     }
 }
 addClickListenersToTags();
-function generateAuthors(){
-  const allAuthors ={};
-  /* find all articles */
-  const articles = document.querySelectorAll(optArticleSelector);
-
-  /* find author wrapper */
-  const authorWrapper = document.querySelector(optArticleAuthorSelector);
-  /* make html variable with empty string */
-  let html = '';
-
-  /* START LOOP: for every article: */
-  for(let article of articles){
-
-    /* get author from data-author attribute */
-    const author = article.getAttribute('data-author');
-
-    const postAuthor = article.querySelector('.post .post-author');
 
 
 
-    const linkHTMLData = { id: author, title: author };
-    postAuthor.innerHTML = template.authorLink(linkHTMLData);
-
-    /* generate HTML of the link */
-    const linkHTML = '<li><a href="#author-' + author + '">' + author + '</a></li>';
-    html = html + linkHTML;
-    /* [NEW] check if this link is NOT already in allAuthors */
-    if (!allAuthors.hasOwnProperty(author)) {
-      /* [NEW] add tag to allAuthors object */
-      allAuthors[author] = 1;
-    } else {
-      allAuthors[author]++;
-    }
-  }
-  /* insert HTML of all the links into the tags wrapper */
-  authorWrapper.innerHTML = html;
-  /* [NEW] find list of tags in right column */
-  const tagList = document.querySelector(optArticleAuthorSelector);
-
-  /* [NEW] create new variable for all author links HTML code*/
-  let allAuthorsHTML = '';
-  /*[NEW] start LOOP for each authorTag in allAuthors*/
-  for (let author in allAuthors) {
-    /*[NEW] generate code of a link and add it to allAuthorsHTML*/
-    allAuthorsHTML += '<li><a href="#author-' + author + '">' + author + '(' + allAuthors[author] + ')</a></li>';
-
-  }
-  authorWrapper.innerHTML = allAuthorsHTML;
-}
-generateAuthors();
 
 function authorClickHandler(){
   /* prevent default action for this event */
@@ -295,4 +250,20 @@ function addClickListenersToAuthors(){
     /* END LOOP: for each link */
   }
 }
+
+function generateAuthors() {
+// find all articles /
+    const articles = document.querySelectorAll(optArticleSelector);
+ 
+    for(let article of articles){
+        const authorName = article.getAttribute('data-author');
+        const authorLink = '<li><a href="#author-'+ authorName + '">' +authorName + '</a></li>'
+    
+        
+        
+           const articleTitle = article.querySelector('.post-author');
+    articleTitle.innerHTML = authorLink;    
+    }
+}
+generateAuthors();
 addClickListenersToAuthors();
