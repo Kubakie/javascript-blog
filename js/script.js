@@ -254,16 +254,19 @@ function addClickListenersToAuthors(){
 function generateAuthors() {
 // find all articles /
     const articles = document.querySelectorAll(optArticleSelector);
- 
+    let html = '';
+    const authorCloud = document.querySelector('.list.authors');
     for(let article of articles){
         const authorName = article.getAttribute('data-author');
-        const authorLink = '<li><a href="#author-'+ authorName + '">' +authorName + '</a></li>'
+        const authorLink = '<li><a href="#author-'+ authorName + '">' +authorName + '</a></li>';
+        html = html+authorLink;
     
         
         
            const articleTitle = article.querySelector('.post-author');
     articleTitle.innerHTML = authorLink;    
     }
+    authorCloud.innerHTML = html;
 }
 generateAuthors();
 addClickListenersToAuthors();
