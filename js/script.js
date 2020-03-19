@@ -1,6 +1,8 @@
 'use strict';
 const templates = {
-  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML)
+    authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+    tagCloudLink:Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
 }
 function titleClickHandler(event) {
     event.preventDefault();
@@ -133,20 +135,25 @@ function generateTags() {
     const tagsParams = calculateTagsParams(allTags);
     console.log('tagsParams:', tagsParams)
     // [NEW] create variable for all links HTML code /
-    let allTagsHTML = '';
+   const allTagsData = {tags: []};
     // [NEW] START LOOP: for each tag in allTags: /
     for(let tag in allTags){
     // [NEW] generate code of a link and add it to allTagsHTML /
         const tagLinkHTML = ' (' + calculateTagClass(allTags[tag], tagsParams) + ') ';
         console.log('tagLinkHTML:', tagLinkHTML);
         const linkhtml = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-'  + tag + '">' + tag +  '(' + allTags[tag] +')' + '</a></li>'
-        allTagsHTML += linkhtml;
+        allTagsData.tags.push({
+            tag: tag,
+            count: allTags[tag],
+            className: calculateTagClass(allTags[tag], tagsParams)
+        });
          // [NEW] END LOOP: for each tag in allTags /
     }
      // [NEW] END LOOP: for each tag in allTags: /
       // [NEW] add html from allTagsHTML to tagList /
-    console.log(allTagsHTML);
-    tagList.innerHTML = allTagsHTML;
+ 
+   tagList.innerHTML = templates.tagCloudLink(allTagsData);
+    console.log(allTagsData);
 }
 generateTags();
 function tagClickHandler(event) {
