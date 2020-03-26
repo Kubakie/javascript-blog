@@ -265,13 +265,15 @@ function generateAuthors() {
     const authorCloud = document.querySelector('.list.authors');
     for(let article of articles){
         const authorName = article.getAttribute('data-author');
-        const authorLink = '<li><a href="#author-'+ authorName + '">' +authorName + '</a></li>';
-        html = html+authorLink;
+       const authorlinkHTMLData = {author: authorName, };
+const authorlinkHTML = templates.authorLink(authorlinkHTMLData);
+        console.log(authorlinkHTML);
+        html = html+authorlinkHTML;
     
         
         
            const articleTitle = article.querySelector('.post-author');
-    articleTitle.innerHTML = authorLink;    
+    articleTitle.innerHTML = authorlinkHTML;    
     }
     authorCloud.innerHTML = html;
 }

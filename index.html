@@ -212,8 +212,9 @@
   <li><a href="#tag-{{tag}}"class="{{className}}">{{tag}} </a>({{ count }})</li>
   {{/each}}
 </script>
+     '<li><a href="#author-'+ authorName + '">' +authorName + '</a></li>';
      <script id="template-author-link" type="text/x-handlebars-template">
-  <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+  <li><a href="#author-{{ author }}"><span>{{ author }}</span></a></li>
 </script>
     <script id="template-article-link" type="text/x-handlebars-template">
   <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
